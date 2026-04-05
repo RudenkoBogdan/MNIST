@@ -38,8 +38,19 @@ class Perceptron:
         loss_per_sample = -np.log(y_pred[np.arange(len(y_true)), y_true])
         return np.mean(loss_per_sample)
 
-    def backward():
-        return 0 
+    def backward(self, X, y_true):
+        probs = self._softmax(self.logits)
+
+        y_true = np.eye(self.n_classes)[y_true]
+
+        dL_dout = probs - y_true
+
+        N = self.logits.shape[0]
+        self.dw = X.T @ dL_dout / N
+        self.db = np.sum(dL_dout, axis=0) / N
+        self.dX = dL_dout @ self.weights.T
+
+        return self.dX
 
     def fit():
         return 0
