@@ -24,8 +24,10 @@ class Perceptron:
         self.weights = self.rng.normal(0.0, 2/self.input_size, size=(self.input_size, self.n_classes))
         self.bias = self.rng.normal(0.0, 2/self.n_classes, size=self.n_classes)
 
-    def forward():
-        return 0
+    def forward(self, x):
+        logits = x @ self.weights + self.bias
+        self.logits = logits         
+        return logits
 
     def _softmax():
         return 0
