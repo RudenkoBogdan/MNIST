@@ -19,19 +19,28 @@ class Perceptron:
         self.rng = np.random.default_rng(random_seed)
 
     def _init_weights():
+        return 0
 
     def forward():
+        return 0 
 
     def _softmax():
+        return 0
 
     def _cross_entropy_loss():
+        return 0
 
     def backward():
+        return 0 
 
     def fit():
+        return 0
 
     def predict():
+        return 0
 
     def predict_proba():
+        return 0
     
     def evaluate():
+        return 0 
