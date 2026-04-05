@@ -1,4 +1,5 @@
 import numpy as np
+from tqdm import tqdm
 
 class Perceptron:
     def __init__(
@@ -52,8 +53,29 @@ class Perceptron:
 
         return self.dX
 
-    def fit():
-        return 0
+    def fit(self, X, y):
+        self._init_weights
+        self.history = []
+
+        for epoch in tqdm(range(self.epochs), desc="Epochs"):
+            batch_loss = 0
+
+            for i in tqdm(range(0, len(X), self.batch_size), desc="Batches", leave=False):
+                X_batch = X[i : i + self.batch_size]
+                y_batch = y[i : i + self.batch_size]
+
+                logits = self.forward(X_batch)
+                probs = self._softmax(logits)
+
+                self.backward(X_batch, y_batch)
+
+                self.weights -= self.learning_rate * self.dw 
+                self.bias -= self.learning_rate * self.db 
+
+                batch_loss += self._cross_entropy_loss(y_batch, probs)
+            
+            loss = batch_loss / (len(X) // self.batch_size)
+            self.history.append(loss)
 
     def predict():
         return 0
