@@ -16,13 +16,17 @@ class Perceptron:
         self.epochs = epochs
         self.batch_size = batch_size
 
+        self.weights = None
+
         self.rng = np.random.default_rng(random_seed)
 
-    def _init_weights():
-        return 0
+    def _init_weights(self):
+        self.weights = []
+        scale = 2 / self.input_size
+        self.weights.append(self.rng.normal(0.0, scale, size=self.input_size))
 
     def forward():
-        return 0 
+        return 0
 
     def _softmax():
         return 0
@@ -40,7 +44,7 @@ class Perceptron:
         return 0
 
     def predict_proba():
-        return 0
+        return 0 
     
     def evaluate():
-        return 0 
+        return 0
