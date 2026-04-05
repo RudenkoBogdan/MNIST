@@ -8,7 +8,7 @@ class Perceptron:
             learning_rate = 1e-3,
             epochs = 30,
             batch_size = 64,
-            random_seed =42):
+            random_seed = 42):
         
         self.input_size = input_size
         self.n_classes = n_classes
@@ -21,9 +21,8 @@ class Perceptron:
         self.rng = np.random.default_rng(random_seed)
 
     def _init_weights(self):
-        self.weights = []
-        scale = 2 / self.input_size
-        self.weights.append(self.rng.normal(0.0, scale, size=self.input_size))
+        self.weights = self.rng.normal(0.0, 2/self.input_size, size=(self.input_size, self.n_classes))
+        self.bias = self.rng.normal(0.0, 2/self.n_classes, size=self.n_classes)
 
     def forward():
         return 0
