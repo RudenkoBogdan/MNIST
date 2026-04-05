@@ -26,15 +26,17 @@ class Perceptron:
 
     def forward(self, x):
         logits = x @ self.weights + self.bias[None, :]
-        self.logits = logits         
+        self.logits = logits
         return logits
 
     def _softmax(self, x):
         e = np.exp(x - np.max(x, axis=1, keepdims=True))
         return e / np.sum(e, axis=1, keepdims=True)
-
-    def _cross_entropy_loss():
-        return 0
+    
+    def _cross_entropy_loss(self, y_true, y_pred):
+        y_pred = np.clip(y_pred, 1e-15, 1-1e-15)
+        loss_per_sample = -np.log(y_pred[np.arange(len(y_true)), y_true])
+        return np.mean(loss_per_sample)
 
     def backward():
         return 0 
