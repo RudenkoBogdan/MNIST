@@ -25,7 +25,7 @@ class Perceptron:
         self.bias = self.rng.normal(0.0, 2/self.n_classes, size=self.n_classes)
 
     def forward(self, x):
-        logits = x @ self.weights + self.bias
+        logits = x @ self.weights + self.bias[None, :]
         self.logits = logits         
         return logits
 
