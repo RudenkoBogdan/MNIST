@@ -29,8 +29,9 @@ class Perceptron:
         self.logits = logits         
         return logits
 
-    def _softmax():
-        return 0
+    def _softmax(self, x):
+        e = np.exp(x - np.max(x, axis=1, keepdims=True))
+        return e / np.sum(e, axis=1, keepdims=True)
 
     def _cross_entropy_loss():
         return 0
