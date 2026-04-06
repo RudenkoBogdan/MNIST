@@ -85,8 +85,13 @@ class Perceptron:
         prediction = np.argmax(logits, axis=1) 
         return prediction
 
-    def predict_proba():
-        return 0 
+    def predict_proba(self, X):
+        if self.weights is None:
+            return 'Error: the model has not been trained'
+
+        logits = self.forward(X)
+        output = self._softmax(logits)
+        return output
     
     def evaluate():
         return 0
