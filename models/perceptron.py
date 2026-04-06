@@ -77,8 +77,13 @@ class Perceptron:
             loss = batch_loss / (len(X) // self.batch_size)
             self.history.append(loss)
 
-    def predict():
-        return 0
+    def predict(self, X):
+        if self.weights is None:
+            return 'Error: the model has not been trained'
+        
+        logits = self.forward(X)
+        prediction = np.argmax(logits, axis=1) 
+        return prediction
 
     def predict_proba():
         return 0 
