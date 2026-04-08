@@ -93,5 +93,15 @@ class Perceptron:
         output = self._softmax(logits)
         return output
     
-    def evaluate():
-        return 0
+    def evaluate(self, X_test, y_test):
+        if self.weights is None:
+            return 'Error: the model has not been trained'
+        
+        preds = self.predict(X_test)
+        probs = self.predict_proba(X_test)
+        loss = self._cross_entropy_loss(y_test, probs)
+        accuracy = np.mean(preds == y_test)
+
+        results = {'probs': probs, 'loss': loss, 'accuracy': accuracy}
+        
+        return results
