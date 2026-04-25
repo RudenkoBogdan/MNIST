@@ -37,7 +37,15 @@ class Classifier:
         
     
     def _init_weights(self):
-        return 0
+        sizes = [self.input_size] + self.hidden_size + [self.output_size]
+
+        for i in range(len(sizes) - 1):
+            scale = np.sqrt(2 / sizes[i])
+            w = np.random.randn(sizes[i], sizes[i+1]) * scale
+            b = np.zeros((1, sizes[i+1]))
+
+            self.weights.append(w)
+            self.biases.append(b)
     
     def forward(self, X):
         return 0
