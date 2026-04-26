@@ -53,14 +53,14 @@ class Classifier:
 
         tmp = X 
         for i in range(len(self.weights) - 1):
-            z_arr = np.dot(tmp, self.weights[i]) + self.biases[i]
+            z_arr = tmp @ self.weights[i] + self.biases[i]
             self.z_arr.append(z_arr)
             a = np.maximum(0, z_arr)
             self.activations.append(a)
 
             tmp = a
 
-        z_last = np.dot(tmp, self.weights[-1]) + self.biases[-1]
+        z_last = tmp @ self.weights[-1] + self.biases[-1]
         self.z_arr.append(z_last)
 
         output = self.softmax(z_last)
