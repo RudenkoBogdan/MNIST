@@ -109,6 +109,11 @@ class Classifier:
             self.weights[i] -= self.learning_rate * self.d_weights[i]
             self.biases[i] -= self.learning_rate * self.d_biases[i]
     
+    def _one_hot(self, y):
+        one_hote = np.zeros((y.shape[0], self.output_size))
+        one_hote[np.arange(y.shape[0]), y] = 1.0
+        return one_hote
+
     def fit(self, train_dataloader):
         for epoch in tqdm(range(self.epochs), desc='Epochs'):
             epoch_loss = 0
