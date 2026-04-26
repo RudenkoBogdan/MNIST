@@ -22,6 +22,7 @@ class Classifier:
         self.biases = []
         self._init_weights()
         self.activation = self._set_activation(activation_func)
+        self.d_activation = self._set_activation_derivative(activation_func)
 
     def _set_activation(self, name):
         activation_map = {
@@ -35,7 +36,21 @@ class Classifier:
             'linear': lambda x: x }
         return activation_map.get(name)
         
-    
+    def _set_activation_derivative(self, name):
+        deriv_map = {
+            'relu': lambda x: (x > 0).astype(float),
+            'sigmoid': lambda x: x * (1 - x),
+            'tanh': lambda x: 1 - x**2,
+            'leaky_relu': lambda x: np.where(x > 0, 1.0, 0.01),
+            'elu': lambda x: np.where(x > 0, 1.0, np.exp(x)),
+            'swish': lambda x: self.activation(x) + (1 - self.activation(x)) * (1 / (1 + np.exp(-x))),  # приближённо
+            'gelu': lambda x: 0.5 * (1 + np.tanh(np.sqrt(2 / np.pi) * (x + 0.044715 * x**3))) +
+                              x * 0.5 * (1 - np.tanh(np.sqrt(2 / np.pi) * (x + 0.044715 * x**3))**2) *
+                              (np.sqrt(2 / np.pi) * (1 + 0.134145 * x**2)), 
+            'linear': lambda x: np.ones_like(x)
+        }
+        return deriv_map.get(name, lambda x: np.ones_like(x))
+
     def _init_weights(self):
         sizes = [self.input_size] + self.hidden_size + [self.output_size]
 
