@@ -66,6 +66,10 @@ class Classifier:
 
             self.weights.append(w)
             self.biases.append(b)
+
+    def _softmax(self, x):
+        exp_x = np.exp(x - np.max(x, axis=1, keepdims=True))
+        return exp_x / np.sum(exp_x, axis=1, keepdims=True)
     
     def forward(self, X):
         self.activations = [X]
@@ -83,7 +87,7 @@ class Classifier:
         z_last = tmp @ self.weights[-1] + self.biases[-1]
         self.z_arr.append(z_last)
 
-        output = self.softmax(z_last)
+        output = self._softmax(z_last)
         self.activations.append(output)
 
         return output
@@ -140,10 +144,10 @@ class Classifier:
             print(f"Epoch {epoch + 1:3d}/{self.epochs} | Loss: {avg_loss:.4f}")
     
     def predict(self, X):
-        return 0 
+        return np.argmax(self.predict_proba(X), axis=1) 
     
     def predict_proba(self, X):
-        return 0
+        return self.forward(X)
     
     def evaulate(self, X, y):
         return 0
