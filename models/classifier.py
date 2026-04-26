@@ -20,6 +20,11 @@ class Classifier:
 
         self.weights = []
         self.biases = []
+        self.d_weights = None
+        self.d_biases = None  
+        self.activations = None 
+        self.z_arr = None 
+
         self._init_weights()
         self.activation = self._set_activation(activation_func)
         self.d_activation = self._set_activation_derivative(activation_func)
