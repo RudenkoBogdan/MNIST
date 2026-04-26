@@ -100,7 +100,9 @@ class Classifier:
                 dz = da_prev * self.d_activations(self.z_arr[i - 1])
     
     def _update_parameters(self):
-        return 0
+        for i in range(len(self.weights)):
+            self.weights[i] -= self.learning_rate * self.d_weights[i]
+            self.biases[i] -= self.learning_rate * self.d_biases[i]
     
     def fit(self, X_train, y_train):
         return 0
