@@ -114,6 +114,11 @@ class Classifier:
         one_hote[np.arange(y.shape[0]), y] = 1.0
         return one_hote
 
+    def _compute_loss(self, y_pred, y_true):
+        y_pred = np.clip(y_pred, 1e-15, 1)
+        m = y_true.shape[0]
+        return -np.sum(y_true * np.log(y_pred)) / m
+
     def fit(self, train_dataloader):
         for epoch in tqdm(range(self.epochs), desc='Epochs'):
             epoch_loss = 0
