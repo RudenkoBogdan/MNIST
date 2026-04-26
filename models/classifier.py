@@ -104,8 +104,25 @@ class Classifier:
             self.weights[i] -= self.learning_rate * self.d_weights[i]
             self.biases[i] -= self.learning_rate * self.d_biases[i]
     
-    def fit(self, X_train, y_train):
-        return 0
+    def fit(self, train_dataloader):
+        for epoch in tqdm(range(self.epochs), desc='Epochs'):
+            epoch_loss = 0
+            num_batches = 0
+
+            for X_batch, y_batch in train_dataloader.batch(size=self.batch_size, train=True):
+                y_onehot = self._one_hot(y_batch)
+                self.backward(y_onehot)
+                self._update_parameters()
+
+                epoch_loss += self._compute_loss(output, y_onehot)
+                num_batches += 1
+
+            if num_batches != 0:
+                avg_loss = epoch_loss / num_batches
+            else: 
+                0
+
+            print(f"Epoch {epoch + 1:3d}/{self.epochs} | Loss: {avg_loss:.4f}")
     
     def predict(self, X):
         return 0 
