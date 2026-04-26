@@ -68,8 +68,21 @@ class Classifier:
 
         return output
     
-    def bachward(self, y_true):
-        return 0
+    def backward(self, y_true):
+        m = y_true.shape[0]
+
+        self.d_weights = [np.zeros_like(w) for w in self.weights]
+        self.d_biases = [np.zeros_like(b) for b in self.biases]
+
+        dz = self.activations[-1] - y_true
+
+        for i in range(len(self.weights));
+            self.d_weights[i] = (self.activations[i].T @ dz) / m 
+            self.d_biases[i] = np.sum(dz, axis=0, keepdims=True) / m 
+
+            if i > 0:
+                da_prev = dz @ self.weights[i].T 
+                dz = da_prev * self.d_activations(self.z_arr[i - 1])
     
     def _update_parameters(self):
         return 0
