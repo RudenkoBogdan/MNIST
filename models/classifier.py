@@ -156,5 +156,13 @@ class Classifier:
         return accuracy
     
     def visualize(self):
-        return 0
-    
+        import matplotlib.pyplot as plt 
+        w = self.weights[0].T.reshape(-1, 28, 28)
+        fig, axes = plt.subplots(4, 8, figsize=(12, 6))
+        for i, ax in enumerate(axes.flat):
+            if i < w.shape[0]:
+                ax.imshow(w[i], cmap='gray')
+                ax.axis('off')
+        plt.suptitle('First hidden layer weights')
+        plt.tight_layout()
+        plt.show()
