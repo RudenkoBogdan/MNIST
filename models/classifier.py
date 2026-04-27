@@ -149,8 +149,11 @@ class Classifier:
     def predict_proba(self, X):
         return self.forward(X)
     
-    def evaulate(self, X, y):
-        return 0
+    def evaulate(self, X_test, y_test):
+        prediction = self.predict(X_test)
+        accuracy = np.mean(predictions == y_test)
+        print(f"Test accuracy: {accuracy:.4f} ({accuracy * 100:.2f}%)")
+        return accuracy
     
     def visualize(self):
         return 0
